@@ -4,47 +4,45 @@ import numpy as np
 # Sample data (for demonstration, replace this with your actual DataFrame)
 data = pd.read_csv('../../data/processed/taxon/Animal_Diversity.csv')
 
-# Sort the data by max_ma to ensure chronological order
-data = data.sort_values(by='max_ma')
+# Ensure the data is sorted by 'max_ma'
+data.sort_values(by='max_ma', inplace=True)
 
-# Initialize an empty list to hold new rows
-new_rows = []
+# Define a function for linear interpolation between two points
+def linear_interpolation(row1, row2, new_max_ma):
+    ratio = (new_max_ma - row1['max_ma']) / (row2['max_ma'] - row1['max_ma'])
+    interpolated_values = {}
+    for col in ['n_occs']:  # Extend this list to include other columns you want to interpolate
+        interpolated_values[col] = row1[col] + ratio * (row2[col] - row1[col])
+    return interpolated_values
 
-# Define the interpolation step (5 million years)
-step = 5.0
-max_value = data['max_ma'].max()
-current_value = 0
+# List to hold interpolated rows
+interpolated_rows = []
 
-while current_value <= max_value:
-    # Find rows that bound the current interpolation point
-    lower_bound_rows = data[data['max_ma'] <= current_value]
-    upper_bound_rows = data[data['min_ma'] >= current_value]
+# Iterate through each pair of consecutive rows in the dataset
+for i in range(len(data) - 1):
+    row1 = data.iloc[i]
+    row2 = data.iloc[i + 1]
     
-    if not lower_bound_rows.empty and not upper_bound_rows.empty:
-        lower_row = lower_bound_rows.iloc[-1]
-        upper_row = upper_bound_rows.iloc[0]
-        
-        # Perform linear interpolation
-        if lower_row['max_ma'] != upper_row['min_ma']:  # Avoid division by zero
-            ratio = (current_value - lower_row['max_ma']) / (upper_row['min_ma'] - lower_row['max_ma'])
-            interpolated_n_occs = lower_row['n_occs'] + ratio * (upper_row['n_occs'] - lower_row['n_occs'])
-        else:
-            interpolated_n_occs = lower_row['n_occs']
-        
-        new_row = {
-            'interval_name': f'Interpolated at {current_value} Ma',
-            'max_ma': current_value,
-            'min_ma': current_value - step,
-            'n_occs': interpolated_n_occs
-        }
-        new_rows.append(new_row)
+    # Define the step for interpolation based on the difference between the max_ma values
+    # This example uses a quarter of the interval for interpolation; adjust as needed
+    step = (row2['max_ma'] - row1['max_ma']) / 4
     
-    current_value += step
+    # Generate new max_ma values for interpolation within the interval
+    new_max_mas = np.arange(row1['max_ma'] + step, row2['max_ma'], step)
+    
+    # Perform interpolation for each new max_ma value
+    for new_max_ma in new_max_mas:
+        interpolated_values = linear_interpolation(row1, row2, new_max_ma)
+        interpolated_row = {'interval_name': f'Interpolated between {row1["interval_name"]} and {row2["interval_name"]}',
+                            'max_ma': new_max_ma,
+                            'min_ma': new_max_ma - step,  # Adjust this based on your specific needs
+                            **interpolated_values}
+        interpolated_rows.append(interpolated_row)
 
 # Convert the list of new rows into a DataFrame
-interpolated_data = pd.DataFrame(new_rows)
+interpolated_data = pd.DataFrame(interpolated_rows)
 
-# Concatenate the original data with the new interpolated data
+# Concatenate the original data with the new interpolated data and sort
 final_data = pd.concat([data, interpolated_data], ignore_index=True).sort_values(by='max_ma')
 
 final_data.to_csv('../../data/processed/taxon/interpolated/Animal_Diversity_interpolated.csv', index=False)

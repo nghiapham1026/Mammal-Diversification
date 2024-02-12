@@ -1,37 +1,97 @@
 interval_no,interval_name,max_ma,min_ma,X_Ft,X_bL,X_FL,X_bt,sampled_in_bin,implied_in_bin,n_occs
 3002.0,Holocene,0.0117,0.0,381.0,62.0,127.0,1167.0,1068.0,120.0,5795.0
+,Interpolated between Holocene and Late Pleistocene,0.040275,0.011699999999999999,,,,,,,5758.0
+,Interpolated between Holocene and Late Pleistocene,0.06885,0.04027499999999999,,,,,,,5721.0
+,Interpolated between Holocene and Late Pleistocene,0.09742499999999998,0.06884999999999998,,,,,,,5684.0
 922.0,Late Pleistocene,0.126,0.0117,644.0,38.0,134.0,585.0,1233.0,176.0,5647.0
+,Interpolated between Late Pleistocene and Middle Pleistocene,0.28975,0.126,,,,,,,4576.75
+,Interpolated between Late Pleistocene and Middle Pleistocene,0.4535,0.28975,,,,,,,3506.5
+,Interpolated between Late Pleistocene and Middle Pleistocene,0.6172500000000001,0.45350000000000007,,,,,,,2436.2499999999995
 923.0,Middle Pleistocene,0.781,0.126,214.0,9.0,34.0,409.0,443.0,81.0,1366.0
+,Interpolated between Middle Pleistocene and Calabrian,1.03725,0.781,,,,,,,1353.5
+,Interpolated between Middle Pleistocene and Calabrian,1.2934999999999999,1.0372499999999998,,,,,,,1341.0
+,Interpolated between Middle Pleistocene and Calabrian,1.5497499999999997,1.2934999999999999,,,,,,,1328.5
+,Interpolated between Middle Pleistocene and Calabrian,1.8059999999999996,1.5497499999999995,,,,,,,1316.0
 740.0,Calabrian,1.806,0.781,166.0,14.0,25.0,252.0,296.0,89.0,1316.0
+,Interpolated between Calabrian and Gelasian,2.0015,1.806,,,,,,,1034.0
+,Interpolated between Calabrian and Gelasian,2.197,2.0015,,,,,,,752.0
+,Interpolated between Calabrian and Gelasian,2.3925,2.197,,,,,,,470.0
 741.0,Gelasian,2.588,1.806,46.0,2.0,10.0,220.0,80.0,42.0,188.0
+,Interpolated between Gelasian and Piacenzian,2.841,2.588,,,,,,,276.50000000000006
+,Interpolated between Gelasian and Piacenzian,3.0940000000000003,2.841,,,,,,,365.0000000000001
+,Interpolated between Gelasian and Piacenzian,3.3470000000000004,3.0940000000000003,,,,,,,453.5000000000001
 96.0,Piacenzian,3.6,2.588,25.0,17.0,47.0,197.0,125.0,64.0,542.0
-,Interpolated at 5.0 Ma,5.0,0.0,,,,,,,565.4275822273514
+,Interpolated between Piacenzian and Zanclean,4.03325,3.5999999999999996,,,,,,,614.75
+,Interpolated between Piacenzian and Zanclean,4.4665,4.03325,,,,,,,687.5
+,Interpolated between Piacenzian and Zanclean,4.89975,4.4665,,,,,,,760.25
 97.0,Zanclean,5.333,3.6,104.0,44.0,70.0,110.0,242.0,95.0,833.0
+,Interpolated between Piacenzian and Zanclean,5.333,4.89975,,,,,,,833.0
+,Interpolated between Zanclean and Messinian,5.81125,5.333,,,,,,,767.5
+,Interpolated between Zanclean and Messinian,6.2895,5.81125,,,,,,,702.0
+,Interpolated between Zanclean and Messinian,6.76775,6.2895,,,,,,,636.5
 98.0,Messinian,7.246,5.333,11.0,21.0,46.0,143.0,102.0,61.0,571.0
-,Interpolated at 10.0 Ma,10.0,5.0,,,,,,,924.2222222222222
+,Interpolated between Messinian and Tortonian,8.339500000000001,7.246000000000001,,,,,,,807.2500000000002
+,Interpolated between Messinian and Tortonian,9.433,8.339500000000001,,,,,,,1043.5
+,Interpolated between Messinian and Tortonian,10.526499999999999,9.433,,,,,,,1279.7499999999998
 99.0,Tortonian,11.62,7.246,85.0,55.0,138.0,79.0,314.0,125.0,1516.0
+,Interpolated between Tortonian and Serravallian,12.17,11.62,,,,,,,1420.0
+,Interpolated between Tortonian and Serravallian,12.72,12.17,,,,,,,1323.9999999999998
+,Interpolated between Tortonian and Serravallian,13.270000000000001,12.72,,,,,,,1227.9999999999998
 100.0,Serravallian,13.82,11.62,51.0,37.0,89.0,83.0,211.0,111.0,1132.0
-,Interpolated at 15.0 Ma,15.0,10.0,,,,,,,1327.9348837209302
+,Interpolated between Serravallian and Langhian,14.3575,13.82,,,,,,,1054.25
+,Interpolated between Serravallian and Langhian,14.895,14.3575,,,,,,,976.5000000000001
+,Interpolated between Serravallian and Langhian,15.4325,14.895,,,,,,,898.7500000000002
+,Interpolated between Serravallian and Langhian,15.969999999999999,15.4325,,,,,,,821.0000000000002
 101.0,Langhian,15.97,13.82,34.0,22.0,47.0,86.0,137.0,61.0,821.0
-,Interpolated at 20.0 Ma,20.0,15.0,,,,,,,302.5995525727071
+,Interpolated between Langhian and Burdigalian,17.087500000000002,15.970000000000002,,,,,,,988.0000000000002
+,Interpolated between Langhian and Burdigalian,18.205000000000002,17.087500000000002,,,,,,,1155.0000000000002
+,Interpolated between Langhian and Burdigalian,19.3225,18.205000000000002,,,,,,,1322.0
 102.0,Burdigalian,20.44,15.97,65.0,24.0,151.0,43.0,265.0,92.0,1489.0
+,Interpolated between Burdigalian and Aquitanian,21.087500000000002,20.44,,,,,,,1178.2499999999995
+,Interpolated between Burdigalian and Aquitanian,21.735000000000003,21.087500000000002,,,,,,,867.4999999999992
+,Interpolated between Burdigalian and Aquitanian,22.382500000000004,21.735000000000003,,,,,,,556.7499999999987
 103.0,Aquitanian,23.03,20.44,25.0,12.0,42.0,42.0,86.0,23.0,246.0
-,Interpolated at 25.0 Ma,25.0,20.0,,,,,,,433.67455621301764
+,Interpolated between Aquitanian and Chattian,24.2975,23.03,,,,,,,318.2499999999999
+,Interpolated between Aquitanian and Chattian,25.564999999999998,24.2975,,,,,,,390.4999999999998
+,Interpolated between Aquitanian and Chattian,26.832499999999996,25.564999999999998,,,,,,,462.7499999999997
+,Interpolated between Aquitanian and Chattian,28.099999999999994,26.832499999999996,,,,,,,534.9999999999995
 104.0,Chattian,28.1,23.03,17.0,17.0,89.0,37.0,133.0,50.0,535.0
-,Interpolated at 30.0 Ma,30.0,25.0,,,,,,,669.6379310344828
+,Interpolated between Chattian and Rupelian,29.55,28.1,,,,,,,583.5
+,Interpolated between Chattian and Rupelian,31.0,29.55,,,,,,,632.0
+,Interpolated between Chattian and Rupelian,32.45,31.000000000000004,,,,,,,680.5000000000001
 105.0,Rupelian,33.9,28.1,34.0,18.0,132.0,20.0,190.0,57.0,729.0
-,Interpolated at 35.0 Ma,35.0,30.0,,,,,,,626.2439024390243
+,Interpolated between Rupelian and Priabonian,34.925,33.9,,,,,,,783.2499999999999
+,Interpolated between Rupelian and Priabonian,35.949999999999996,34.925,,,,,,,837.4999999999998
+,Interpolated between Rupelian and Priabonian,36.974999999999994,35.949999999999996,,,,,,,891.7499999999998
+,Interpolated between Rupelian and Priabonian,37.99999999999999,36.974999999999994,,,,,,,945.9999999999995
 106.0,Priabonian,38.0,33.9,17.0,47.0,140.0,21.0,206.0,52.0,946.0
-,Interpolated at 40.0 Ma,40.0,35.0,,,,,,,1010.8484848484849
+,Interpolated between Priabonian and Bartonian,38.825,38.0,,,,,,,795.9999999999993
+,Interpolated between Priabonian and Bartonian,39.650000000000006,38.825,,,,,,,645.9999999999987
+,Interpolated between Priabonian and Bartonian,40.47500000000001,39.650000000000006,,,,,,,495.99999999999807
 107.0,Bartonian,41.3,38.0,17.0,9.0,38.0,51.0,80.0,39.0,346.0
-,Interpolated at 45.0 Ma,45.0,40.0,,,,,,,1347.8461538461547
+,Interpolated between Bartonian and Lutetian,42.925,41.3,,,,,,,522.75
+,Interpolated between Bartonian and Lutetian,44.55,42.925,,,,,,,699.5
+,Interpolated between Bartonian and Lutetian,46.175,44.55,,,,,,,876.25
 108.0,Lutetian,47.8,41.3,30.0,34.0,147.0,30.0,222.0,56.0,1053.0
-,Interpolated at 50.0 Ma,50.0,45.0,,,,,,,885.0487804878047
-,Interpolated at 55.0 Ma,55.0,50.0,,,,,,,503.3414634146342
+,Interpolated between Lutetian and Ypresian,49.849999999999994,47.8,,,,,,,1316.2499999999995
+,Interpolated between Lutetian and Ypresian,51.89999999999999,49.849999999999994,,,,,,,1579.499999999999
+,Interpolated between Lutetian and Ypresian,53.94999999999999,51.89999999999999,,,,,,,1842.7499999999986
+,Interpolated between Lutetian and Ypresian,55.999999999999986,53.94999999999999,,,,,,,2105.999999999998
 109.0,Ypresian,56.0,47.8,53.0,24.0,287.0,11.0,367.0,73.0,2106.0
+,Interpolated between Ypresian and Thanetian,56.8,56.0,,,,,,,1686.2500000000018
+,Interpolated between Ypresian and Thanetian,57.599999999999994,56.8,,,,,,,1266.5000000000036
+,Interpolated between Ypresian and Thanetian,58.39999999999999,57.599999999999994,,,,,,,846.7500000000057
+,Interpolated between Ypresian and Thanetian,59.19999999999999,58.39999999999999,,,,,,,427.0000000000075
 110.0,Thanetian,59.2,56.0,23.0,8.0,67.0,12.0,102.0,31.0,427.0
-,Interpolated at 60.0 Ma,60.0,55.0,,,,,,,527.9999999999997
+,Interpolated between Thanetian and Selandian,59.800000000000004,59.2,,,,,,,338.2499999999998
+,Interpolated between Thanetian and Selandian,60.400000000000006,59.800000000000004,,,,,,,249.4999999999995
+,Interpolated between Thanetian and Selandian,61.00000000000001,60.400000000000006,,,,,,,160.7499999999992
 743.0,Selandian,61.6,59.2,0.0,0.0,19.0,20.0,19.0,10.0,72.0
-,Interpolated at 65.0 Ma,65.0,60.0,,,,,,,5459.454545454545
+,Interpolated between Selandian and Danian,62.7,61.6,,,,,,,236.50000000000026
+,Interpolated between Selandian and Danian,63.800000000000004,62.7,,,,,,,401.0000000000005
+,Interpolated between Selandian and Danian,64.9,63.800000000000004,,,,,,,565.5000000000008
 111.0,Danian,66.0,61.6,8.0,14.0,75.0,12.0,103.0,31.0,730.0
+,Interpolated between Danian and Maastrichtian,67.525,66.0,,,,,,,2308.5000000000073
+,Interpolated between Danian and Maastrichtian,69.05000000000001,67.525,,,,,,,3887.0000000000146
+,Interpolated between Danian and Maastrichtian,70.57500000000002,69.05000000000001,,,,,,,5465.500000000022
 112.0,Maastrichtian,72.1,66.0,26.0,0.0,572.0,0.0,598.0,142.0,7044.0
