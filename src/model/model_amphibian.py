@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 # Assuming 'data' is your DataFrame
 data = pd.read_csv('../../data/processed/taxon/Amphibian_Diversity.csv')
+#data = pd.read_csv('../../data/processed/taxon/interpolated/Amphibian_Diversity_interpolated.csv')
 
 # Sort the data by max_ma to ensure chronological order
 data = data.sort_values(by='max_ma')
