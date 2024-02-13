@@ -11,7 +11,7 @@ def filter_dataset(input_file_path, output_file_path):
     data['Time (kyr BP)'] = data['Time (kyr BP)'].astype(int)
     
     # Filter rows to keep only those at 100 thousand years increments
-    filtered_data = data[data['Time (kyr BP)'] % 100 == 0]
+    filtered_data = data[data['Time (kyr BP)'] % 500 == 0]
     
     # Save the filtered data to a new CSV file
     filtered_data.to_csv(output_file_path, index=False)
