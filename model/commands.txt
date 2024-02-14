@@ -1,0 +1,7 @@
+py -m model.model_amphibian.py
+py -m model.model_animal.py
+py -m model.model_insect.py
+py -m model.model_mammal.py
+py -m model.model_reptile.py
+py -m model.model_temp.py
+py -m model.model_temp_deboer.py

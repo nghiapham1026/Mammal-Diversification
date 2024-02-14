@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Sample data
-data = pd.read_csv('../data/processed/climate/40mya_climate_data_reduced.csv');
+data = pd.read_csv('./data/processed/climate/40mya_climate_data_reduced.csv');
 
 # Convert time from kyr BP to MYA (Million years ago)
 data['Time (MYA)'] = data['Time (kyr BP)'] / -1000
