@@ -8,8 +8,8 @@ start_time = df['Time (Myr BP)'].min()
 # Find the max time to ensure we cover the entire range
 max_time = df['Time (Myr BP)'].max()
 
-# Generate a list of target times, starting from the first time value and adding 5 Myr continuously
-target_times = [start_time + 1*i for i in range(int((max_time - start_time) // 1) + 1)]
+# Generate a list of target times, starting from the first time value and adding n Myr continuously
+target_times = [start_time + 0.5*i for i in range(int((max_time - start_time) // 0.5) + 1)]
 
 # Find the closest actual time value in the dataset to each target time
 filtered_indices = []
