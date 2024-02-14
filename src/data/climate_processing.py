@@ -1,23 +1,29 @@
 import pandas as pd
 
-def filter_dataset(input_file_path, output_file_path):
-    # Load the data
-    data = pd.read_csv(input_file_path)
-    
-    # Filter out rows with "Time (kyr BP)" not ending in .00 (keeping whole numbers)
-    data = data[data['Time (kyr BP)'].apply(lambda x: x == int(x))]
-    
-    # Now that we've ensured all values are whole numbers, convert "Time (kyr BP)" to integer
-    data['Time (kyr BP)'] = data['Time (kyr BP)'].astype(int)
-    
-    # Filter rows to keep only those at 100 thousand years increments
-    filtered_data = data[data['Time (kyr BP)'] % 500 == 0]
-    
-    # Save the filtered data to a new CSV file
-    filtered_data.to_csv(output_file_path, index=False)
+# Load the dataset
+file_path = '../../data/processed/climate/ConvertedTable.csv'
+df = pd.read_csv(file_path)
 
-# Example usage
-input_file_path = '../../data/processed/climate/40mya_climate_data.csv'  # Update this to the path of your text file
-output_file_path = '../../data/processed/climate/40mya_climate_data_reduced.csv'  # Update this to your desired output CSV file path
+start_time = df['Time (Myr BP)'].min()
+# Find the max time to ensure we cover the entire range
+max_time = df['Time (Myr BP)'].max()
 
-filter_dataset(input_file_path, output_file_path)
+# Generate a list of target times, starting from the first time value and adding 5 Myr continuously
+target_times = [start_time + 1*i for i in range(int((max_time - start_time) // 1) + 1)]
+
+# Find the closest actual time value in the dataset to each target time
+filtered_indices = []
+for target_time in target_times:
+    # Find the index of the row with the time value closest to the target time
+    closest_index = (df['Time (Myr BP)'] - target_time).abs().idxmin()
+    if closest_index not in filtered_indices:
+        filtered_indices.append(closest_index)
+
+# Create a filtered DataFrame using the identified indices
+filtered_df_continuous = df.loc[filtered_indices]
+
+# Saving the continuously filtered dataset to a new CSV file
+filtered_continuous_csv_path = '../../data/processed/climate/FilteredTableContinuous5Myr.csv'
+filtered_df_continuous.to_csv(filtered_continuous_csv_path, index=False)
+
+filtered_continuous_csv_path
