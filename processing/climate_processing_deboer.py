@@ -17,7 +17,7 @@ def filter_dataset(input_file_path, output_file_path):
     filtered_data.to_csv(output_file_path, index=False)
 
 # Example usage
-input_file_path = '../../data/processed/climate/40mya_climate_data.csv'  # Update this to the path of your text file
-output_file_path = '../../data/processed/climate/40mya_climate_data_reduced.csv'  # Update this to your desired output CSV file path
+input_file_path = '../data/processed/climate/40mya_climate_data.csv'  # Update this to the path of your text file
+output_file_path = '../data/processed/climate/40mya_climate_data_reduced.csv'  # Update this to your desired output CSV file path
 
 filter_dataset(input_file_path, output_file_path)

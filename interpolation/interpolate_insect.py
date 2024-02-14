@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Sample data (for demonstration, replace this with your actual DataFrame)
-data = pd.read_csv('../../data/processed/taxon/Amphibian_Diversity.csv')
+data = pd.read_csv('../data/processed/taxon/Insect_Diversity.csv')
 
 # Ensure the data is sorted by 'max_ma'
 data.sort_values(by='max_ma', inplace=True)
@@ -45,7 +45,4 @@ interpolated_data = pd.DataFrame(interpolated_rows)
 # Concatenate the original data with the new interpolated data and sort
 final_data = pd.concat([data, interpolated_data], ignore_index=True).sort_values(by='max_ma')
 
-final_data.to_csv('../../data/processed/taxon/interpolated/Amphibian_Diversity_interpolated.csv', index=False)
-
-# Display the final data
-print(final_data)
+final_data.to_csv('../data/processed/taxon/interpolated/Insect_Diversity_interpolated.csv', index=False)

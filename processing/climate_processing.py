@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the dataset
-file_path = '../../data/processed/climate/ConvertedTable.csv'
+file_path = '../data/processed/climate/ConvertedTable.csv'
 df = pd.read_csv(file_path)
 
 start_time = df['Time (Myr BP)'].min()
@@ -23,7 +23,7 @@ for target_time in target_times:
 filtered_df_continuous = df.loc[filtered_indices]
 
 # Saving the continuously filtered dataset to a new CSV file
-filtered_continuous_csv_path = '../../data/processed/climate/FilteredTableContinuous5Myr.csv'
+filtered_continuous_csv_path = '../data/processed/climate/FilteredTableContinuous5Myr.csv'
 filtered_df_continuous.to_csv(filtered_continuous_csv_path, index=False)
 
 filtered_continuous_csv_path

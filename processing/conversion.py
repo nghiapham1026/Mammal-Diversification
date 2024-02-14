@@ -4,7 +4,7 @@ import csv
 header = ["Time (Myr BP)", "delta_18O (0/00)", "Time_mean (Myr BP)", "delta_18O_mean (0/00)", "Tdo", "Ts", "SL"]
 
 # Open the text file to read data
-with open('../../data/raw/climate/Table.txt', 'r') as text_file:
+with open('../data/raw/climate/Table.txt', 'r') as text_file:
     # Skip the first seven lines of the file
     for _ in range(7):
         next(text_file)
@@ -24,7 +24,7 @@ for line in lines:
         data.append(row)
 
 # Define the path for the output CSV file
-csv_file_path = '../../data/processed/climate/ConvertedTable.csv'
+csv_file_path = '../data/processed/climate/ConvertedTable.csv'
 
 # Write the processed data to the CSV file
 with open(csv_file_path, 'w', newline='') as csv_file:

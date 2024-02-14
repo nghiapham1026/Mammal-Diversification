@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Convert the string data to a DataFrame
-df = pd.read_csv('../../data/processed/climate/FilteredTableContinuous5Myr.csv')
+df = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
 # Plotting with inverted x-axis
 plt.figure(figsize=(10, 6))

@@ -16,7 +16,7 @@ def convert_txt_to_csv(input_file_path, output_file_path):
                 outfile.write(cleaned_line + "\n")
 
 # Example usage
-input_file_path = '../../data/raw/climate/BdeBoer_etal_1Dmodel_output.txt'  # Update this to the path of your text file
-output_file_path = '../../data/processed/climate/40mya_climate_data.csv'  # Update this to your desired output CSV file path
+input_file_path = '../data/raw/climate/BdeBoer_etal_1Dmodel_output.txt'  # Update this to the path of your text file
+output_file_path = '../data/processed/climate/40mya_climate_data.csv'  # Update this to your desired output CSV file path
 
 convert_txt_to_csv(input_file_path, output_file_path)
