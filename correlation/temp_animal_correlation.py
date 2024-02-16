@@ -7,25 +7,25 @@ import seaborn as sns
 climate_data_path = '../data/processed/climate/ConvertedTable.csv'
 climate_df = pd.read_csv(climate_data_path)
 
-# Load reptile data
-reptile_data_path = '../data/processed/taxon/interpolated/Reptile_Diversity_interpolated.csv'
-reptile_df = pd.read_csv(reptile_data_path)
+# Load animal data
+animal_data_path = '../data/processed/taxon/interpolated/Animal_Diversity_interpolated.csv'
+animal_df = pd.read_csv(animal_data_path)
 
 # Preprocessing
-# Assuming 'Time (Myr BP)' from climate data matches with 'max_ma' from reptile data
+# Assuming 'Time (Myr BP)' from climate data matches with 'max_ma' from animal data
 # Adjust the columns as necessary based on how you wish to merge (e.g., mean, max, or specific time points)
 climate_df = climate_df[['Time (Myr BP)', 'Ts']].dropna()  # Drop rows where Ts is NaN
-reptile_df = reptile_df[['max_ma', 'sampled_in_bin']].dropna()  # Drop rows where sampled_in_bin is NaN
+animal_df = animal_df[['max_ma', 'sampled_in_bin']].dropna()  # Drop rows where sampled_in_bin is NaN
 
 # Simple merge (example, might need adjustment for exact match)
 # This example assumes an exact match is not required, and uses the closest available time point
 # For a more sophisticated merge strategy, consider interpolating or matching based on nearest values
 
-# Convert climate time to a format that can match reptile_df's max_ma for direct comparison
+# Convert climate time to a format that can match animal_df's max_ma for direct comparison
 climate_df['Time (Myr BP)'] = climate_df['Time (Myr BP)'].round(2)
 
 # Merge on closest time value
-merged_df = pd.merge_asof(reptile_df.sort_values('max_ma'), climate_df.sort_values('Time (Myr BP)'), left_on='max_ma', right_on='Time (Myr BP)', direction='nearest')
+merged_df = pd.merge_asof(animal_df.sort_values('max_ma'), climate_df.sort_values('Time (Myr BP)'), left_on='max_ma', right_on='Time (Myr BP)', direction='nearest')
 
 # Compute Pearson correlation coefficient
 correlation_coef, p_value = pearsonr(merged_df['Ts'], merged_df['sampled_in_bin'])
@@ -42,9 +42,9 @@ scatter_plot = sns.scatterplot(data=merged_df, x='Ts', y='sampled_in_bin', color
 reg_line = sns.regplot(data=merged_df, x='Ts', y='sampled_in_bin', scatter=False, color='red')
 
 # Adding titles and labels
-plt.title('Correlation between Surface Temperature and Reptile Diversity')
+plt.title('Correlation between Surface Temperature and Animal Diversity')
 plt.xlabel('Surface Temperature (Ts)')
-plt.ylabel('Reptile Diversity (Number of Occurrences)')
+plt.ylabel('Animal Diversity (Number of Occurrences)')
 
 # Show plot
 plt.show()

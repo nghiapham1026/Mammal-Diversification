@@ -11,9 +11,9 @@ def plot_diversity_over_time(data_path, plot_title):
     # Plotting
     plt.figure(figsize=(10, 6))
     # Scatter plot for individual data points
-    plt.scatter(data['max_ma'], data['n_occs'], color='blue', label='Number of Occurrences', s=20, alpha=0.5)
+    plt.scatter(data['max_ma'], data['sampled_in_bin'], color='blue', label='Number of Occurrences', s=20, alpha=0.5)
     # Line plot connecting the points
-    plt.plot(data['max_ma'], data['n_occs'], color='red', label='Trend')
+    plt.plot(data['max_ma'], data['sampled_in_bin'], color='red', label='Trend')
     
     plt.xlabel('Time (Million years ago)')
     plt.ylabel('Number of Occurrences')

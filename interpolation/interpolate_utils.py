@@ -9,7 +9,7 @@ def read_and_sort_data(file_path):
 def linear_interpolation(row1, row2, new_max_ma):
     ratio = (new_max_ma - row1['max_ma']) / (row2['max_ma'] - row1['max_ma'])
     interpolated_values = {}
-    for col in ['n_occs']:  # Extend this list to include other columns you want to interpolate
+    for col in ['sampled_in_bin']:  # Extend this list to include other columns you want to interpolate
         interpolated_values[col] = row1[col] + ratio * (row2[col] - row1[col])
     return interpolated_values
 

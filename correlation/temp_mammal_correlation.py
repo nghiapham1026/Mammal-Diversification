@@ -15,7 +15,7 @@ mammal_df = pd.read_csv(mammal_data_path)
 # Assuming 'Time (Myr BP)' from climate data matches with 'max_ma' from mammal data
 # Adjust the columns as necessary based on how you wish to merge (e.g., mean, max, or specific time points)
 climate_df = climate_df[['Time (Myr BP)', 'Ts']].dropna()  # Drop rows where Ts is NaN
-mammal_df = mammal_df[['max_ma', 'n_occs']].dropna()  # Drop rows where n_occs is NaN
+mammal_df = mammal_df[['max_ma', 'sampled_in_bin']].dropna()  # Drop rows where sampled_in_bin is NaN
 
 # Simple merge (example, might need adjustment for exact match)
 # This example assumes an exact match is not required, and uses the closest available time point
@@ -28,7 +28,7 @@ climate_df['Time (Myr BP)'] = climate_df['Time (Myr BP)'].round(2)
 merged_df = pd.merge_asof(mammal_df.sort_values('max_ma'), climate_df.sort_values('Time (Myr BP)'), left_on='max_ma', right_on='Time (Myr BP)', direction='nearest')
 
 # Compute Pearson correlation coefficient
-correlation_coef, p_value = pearsonr(merged_df['Ts'], merged_df['n_occs'])
+correlation_coef, p_value = pearsonr(merged_df['Ts'], merged_df['sampled_in_bin'])
 
 print(f"Pearson correlation coefficient: {correlation_coef}")
 print(f"P-value: {p_value}")
@@ -38,8 +38,8 @@ sns.set_style('whitegrid')
 
 # Create a scatter plot with a regression line
 plt.figure(figsize=(10, 6))  # Set figure size
-scatter_plot = sns.scatterplot(data=merged_df, x='Ts', y='n_occs', color='blue', alpha=0.6)
-reg_line = sns.regplot(data=merged_df, x='Ts', y='n_occs', scatter=False, color='red')
+scatter_plot = sns.scatterplot(data=merged_df, x='Ts', y='sampled_in_bin', color='blue', alpha=0.6)
+reg_line = sns.regplot(data=merged_df, x='Ts', y='sampled_in_bin', scatter=False, color='red')
 
 # Adding titles and labels
 plt.title('Correlation between Surface Temperature and Mammal Diversity')
