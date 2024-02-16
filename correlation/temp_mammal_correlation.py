@@ -3,48 +3,45 @@ from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load climate data
+# Load the necessary datasets
 climate_data_path = '../data/processed/climate/ConvertedTable.csv'
-climate_df = pd.read_csv(climate_data_path)
-
-# Load mammal data
 mammal_data_path = '../data/processed/taxon/interpolated/Mammal_Diversity_interpolated.csv'
+animal_data_path = '../data/processed/taxon/interpolated/Animal_Diversity_interpolated.csv'
+
+climate_df = pd.read_csv(climate_data_path)
 mammal_df = pd.read_csv(mammal_data_path)
+animal_df = pd.read_csv(animal_data_path)
 
 # Preprocessing
-# Assuming 'Time (Myr BP)' from climate data matches with 'max_ma' from mammal data
-# Adjust the columns as necessary based on how you wish to merge (e.g., mean, max, or specific time points)
-climate_df = climate_df[['Time (Myr BP)', 'Ts']].dropna()  # Drop rows where Ts is NaN
-mammal_df = mammal_df[['max_ma', 'sampled_in_bin']].dropna()  # Drop rows where sampled_in_bin is NaN
+climate_df = climate_df[['Time (Myr BP)', 'Ts']].dropna()  # Ensure there are no NaN values in 'Ts'
+mammal_df = mammal_df[['max_ma', 'sampled_in_bin']].dropna()  # Ensure no NaN values in 'sampled_in_bin' for mammals
+animal_df = animal_df[['max_ma', 'sampled_in_bin']].dropna()  # Same for total animal data
 
-# Simple merge (example, might need adjustment for exact match)
-# This example assumes an exact match is not required, and uses the closest available time point
-# For a more sophisticated merge strategy, consider interpolating or matching based on nearest values
+# Merge mammal and total animal data on 'max_ma' to calculate the diversity ratio
+diversity_ratio_df = pd.merge(mammal_df, animal_df, on='max_ma', suffixes=('_mammal', '_total'))
+diversity_ratio_df['diversity_ratio'] = diversity_ratio_df['sampled_in_bin_mammal'] / diversity_ratio_df['sampled_in_bin_total']
 
-# Convert climate time to a format that can match mammal_df's max_ma for direct comparison
-climate_df['Time (Myr BP)'] = climate_df['Time (Myr BP)'].round(2)
+# Merge the ratio data with climate data
+merged_df = pd.merge_asof(diversity_ratio_df.sort_values('max_ma'), climate_df.sort_values('Time (Myr BP)'), left_on='max_ma', right_on='Time (Myr BP)', direction='nearest')
 
-# Merge on closest time value
-merged_df = pd.merge_asof(mammal_df.sort_values('max_ma'), climate_df.sort_values('Time (Myr BP)'), left_on='max_ma', right_on='Time (Myr BP)', direction='nearest')
-
-# Compute Pearson correlation coefficient
-correlation_coef, p_value = pearsonr(merged_df['Ts'], merged_df['sampled_in_bin'])
+# Compute Pearson correlation coefficient between 'Ts' and the diversity ratio
+correlation_coef, p_value = pearsonr(merged_df['Ts'], merged_df['diversity_ratio'])
 
 print(f"Pearson correlation coefficient: {correlation_coef}")
 print(f"P-value: {p_value}")
 
-# Set the style of seaborn for better aesthetics
-sns.set_style('whitegrid')
-
-# Create a scatter plot with a regression line
+# Plotting
+sns.set_style('whitegrid')  # Set seaborn style for better aesthetics
 plt.figure(figsize=(10, 6))  # Set figure size
-scatter_plot = sns.scatterplot(data=merged_df, x='Ts', y='sampled_in_bin', color='blue', alpha=0.6)
-reg_line = sns.regplot(data=merged_df, x='Ts', y='sampled_in_bin', scatter=False, color='red')
+
+# Create scatter plot and regression line for 'Ts' vs. the diversity ratio
+scatter_plot = sns.scatterplot(data=merged_df, x='Ts', y='diversity_ratio', color='blue', alpha=0.6, label='Diversity Ratio')
+reg_line = sns.regplot(data=merged_df, x='Ts', y='diversity_ratio', scatter=False, color='red')
 
 # Adding titles and labels
-plt.title('Correlation between Surface Temperature and Mammal Diversity')
+plt.title('Correlation between Surface Temperature and Mammal-to-Total Animal Diversity Ratio')
 plt.xlabel('Surface Temperature (Ts)')
-plt.ylabel('Mammal Diversity (Number of Occurrences)')
+plt.ylabel('Mammal-to-Total Animal Diversity Ratio')
 
-# Show plot
+plt.legend()
 plt.show()

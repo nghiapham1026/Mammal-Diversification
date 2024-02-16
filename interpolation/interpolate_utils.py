@@ -18,7 +18,7 @@ def interpolate_data(data):
     for i in range(len(data) - 1):
         row1 = data.iloc[i]
         row2 = data.iloc[i + 1]
-        step = (row2['max_ma'] - row1['max_ma']) / 4
+        step = (row2['max_ma'] - row1['max_ma']) / 10
         new_max_mas = np.arange(row1['max_ma'] + step, row2['max_ma'], step)
         for new_max_ma in new_max_mas:
             interpolated_values = linear_interpolation(row1, row2, new_max_ma)
