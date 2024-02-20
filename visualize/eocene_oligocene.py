@@ -1,47 +1,45 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
+# Function to filter dataset based on 'max_ma' and create a copy to avoid SettingWithCopyWarning
+def filter_dataset(df, min_ma, max_ma):
+    filtered_df = df[(df['max_ma'] <= max_ma) & (df['max_ma'] >= min_ma)].copy()
+    filtered_df['mid_ma'] = (filtered_df['max_ma'] + filtered_df['min_ma']) / 2
+    return filtered_df
+
 # Load datasets
-artiodactyl = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Artiodactyl.csv')
-carnivore = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Carnivore.csv')
-cetacean = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Cetacean.csv')
-perissodactyl = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Perissodactyl.csv')
-primate = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Primate.csv')
-proboscidea = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Proboscidea.csv')
-rodent = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Rodent.csv')
-ave = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Ave.csv')
-reptile = pd.read_csv('../data/processed/taxon/visualization/eocene-oligocene/Reptile.csv')
+artiodactyl = pd.read_csv('../data/processed/taxon/visualization/Artiodactyl.csv')
+carnivore = pd.read_csv('../data/processed/taxon/visualization/Carnivore.csv')
+cetacean = pd.read_csv('../data/processed/taxon/visualization/Cetacean.csv')
+perissodactyl = pd.read_csv('../data/processed/taxon/visualization/Perissodactyl.csv')
+primate = pd.read_csv('../data/processed/taxon/visualization/Primate.csv')
+proboscidea = pd.read_csv('../data/processed/taxon/visualization/Proboscidea.csv')
+rodent = pd.read_csv('../data/processed/taxon/visualization/Rodent.csv')
+ave = pd.read_csv('../data/processed/taxon/visualization/Ave.csv')
+reptile = pd.read_csv('../data/processed/taxon/visualization/Reptile.csv')
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
 # Filter climate data for the Eocene and Oligocene periods (56 to 23 MYA)
-climate_filtered = climate[(climate['Time (Myr BP)'] <= 66) & (climate['Time (Myr BP)'] >= 23)]
+climate_filtered = climate[(climate['Time (Myr BP)'] <= 59) & (climate['Time (Myr BP)'] >= 23)]
 
-# Plotting
+# Filter each taxon dataset for 'max_ma' within 27 and 57
+datasets = [artiodactyl, ave, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, reptile]
+filtered_datasets = [filter_dataset(ds, 27, 60) for ds in datasets]
+
+# Calculate 'mid_ma' for each filtered dataset
+for df in filtered_datasets:
+    df['mid_ma'] = (df['max_ma'] + df['min_ma']) / 2
+
+# Now plotting can proceed with the 'mid_ma' values available
 fig, ax1 = plt.subplots(figsize=(14, 8))
 
-artiodactyl['mid_ma'] = (artiodactyl['max_ma'] + artiodactyl['min_ma']) / 2
-ave['mid_ma'] = (ave['max_ma'] + ave['min_ma']) / 2
-carnivore['mid_ma'] = (carnivore['max_ma'] + carnivore['min_ma']) / 2
-cetacean['mid_ma'] = (cetacean['max_ma'] + cetacean['min_ma']) / 2
-perissodactyl['mid_ma'] = (perissodactyl['max_ma'] + perissodactyl['min_ma']) / 2
-primate['mid_ma'] = (primate['max_ma'] + primate['min_ma']) / 2
-proboscidea['mid_ma'] = (proboscidea['max_ma'] + proboscidea['min_ma']) / 2
-reptile['mid_ma'] = (reptile['max_ma'] + reptile['min_ma']) / 2
-rodent['mid_ma'] = (rodent['max_ma'] + rodent['min_ma']) / 2
-
-# Plot each taxon's diversity over time
-ax1.plot(artiodactyl['mid_ma'], artiodactyl['sampled_in_bin'], label='Artiodactyl', marker='o')
-ax1.plot(carnivore['mid_ma'], carnivore['sampled_in_bin'], label='Carnivore', marker='o')
-ax1.plot(cetacean['mid_ma'], cetacean['sampled_in_bin'], label='Cetacean', marker='o')
-ax1.plot(perissodactyl['mid_ma'], perissodactyl['sampled_in_bin'], label='Perissodactyl', marker='o')
-ax1.plot(primate['mid_ma'], primate['sampled_in_bin'], label='Primate', marker='o')
-ax1.plot(proboscidea['mid_ma'], proboscidea['sampled_in_bin'], label='Proboscidea', marker='o')
-ax1.plot(rodent['mid_ma'], rodent['sampled_in_bin'], label='Rodent', marker='o')
-ax1.plot(ave['mid_ma'], ave['sampled_in_bin'], label='Ave', marker='o')
-ax1.plot(reptile['mid_ma'], reptile['sampled_in_bin'], label='Reptile', marker='o')
+# Plot each filtered taxon's diversity over time using 'mid_ma'
+labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Ave', 'Reptile']
+for df, label in zip(filtered_datasets, labels):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o')
 
 # Shading the epochs
-ax1.axvspan(66, 56, color='green', alpha=0.3, label='Paleocene')
+ax1.axvspan(60, 56, color='green', alpha=0.3, label='Paleocene')
 # Eocene Epoch (56 to 33.9 MYA)
 ax1.axvspan(56, 33.9, color='blue', alpha=0.3, label='Eocene')
 # Oligocene Epoch (33.9 to 23 MYA)
