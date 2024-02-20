@@ -4,7 +4,6 @@ import pandas as pd
 # Function to filter dataset based on 'max_ma' and create a copy to avoid SettingWithCopyWarning
 def filter_dataset(df, min_ma, max_ma):
     filtered_df = df[(df['max_ma'] <= max_ma) & (df['max_ma'] >= min_ma)].copy()
-    filtered_df['mid_ma'] = (filtered_df['max_ma'] + filtered_df['min_ma']) / 2
     return filtered_df
 
 # Load datasets
@@ -25,10 +24,6 @@ climate_filtered = climate[(climate['Time (Myr BP)'] <= 59) & (climate['Time (My
 # Filter each taxon dataset for 'max_ma' within 27 and 57
 datasets = [artiodactyl, ave, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, reptile]
 filtered_datasets = [filter_dataset(ds, 27, 60) for ds in datasets]
-
-# Calculate 'mid_ma' for each filtered dataset
-for df in filtered_datasets:
-    df['mid_ma'] = (df['max_ma'] + df['min_ma']) / 2
 
 # Now plotting can proceed with the 'mid_ma' values available
 fig, ax1 = plt.subplots(figsize=(14, 8))

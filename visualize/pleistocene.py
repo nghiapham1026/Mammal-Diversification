@@ -4,7 +4,6 @@ import pandas as pd
 # Function to filter dataset based on 'max_ma' and create a copy to avoid SettingWithCopyWarning
 def filter_dataset(df, min_ma, max_ma):
     filtered_df = df[(df['max_ma'] <= max_ma) & (df['max_ma'] >= min_ma)].copy()
-    filtered_df['mid_ma'] = (filtered_df['max_ma'] + filtered_df['min_ma']) / 2
     return filtered_df
 
 # Load the datasets
@@ -25,10 +24,6 @@ filtered_datasets = [filter_dataset(ds, 0, 5.5) for ds in datasets]
 
 # Plotting with dual-axis for temperature
 fig, ax1 = plt.subplots(figsize=(12, 8))
-
-# Calculate 'mid_ma' for each filtered dataset
-for df in filtered_datasets:
-    df['mid_ma'] = (df['max_ma'] + df['min_ma']) / 2
 
 # Plot each filtered taxon's diversity over time
 labels = ['Artyodactyl', 'Ave', 'Carnivora', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Reptile']
