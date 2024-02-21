@@ -53,10 +53,10 @@ for df, label in zip(reptilian_datasets, reptilian_labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='^', linestyle='--', linewidth=3)
 
 # Plot each taxon
-plot_with_extinction_mark(multituberculates, 'Multituberculates (Extinct)', 'blue')
-plot_with_extinction_mark(pantodonts, 'Pantodonts (Extinct)', 'green')
-plot_with_extinction_mark(plesiadapiformes, 'Plesiadapiformes (Extinct)', 'orange')
-plot_with_extinction_mark(condylarths, 'Condylarths (Extinct)', 'purple')
+plot_with_extinction_mark(filter_dataset(multituberculates, 27, 60), 'Multituberculates (Extinct)', 'blue')
+plot_with_extinction_mark(filter_dataset(pantodonts, 27, 60), 'Pantodonts (Extinct)', 'green')
+plot_with_extinction_mark(filter_dataset(plesiadapiformes, 27, 60), 'Plesiadapiformes (Extinct)', 'orange')
+plot_with_extinction_mark(filter_dataset(condylarths, 27, 60), 'Condylarths (Extinct)', 'purple')
 
 # Shading the epochs
 ax1.axvspan(60, 56, color='green', alpha=0.3, label='Paleocene')
