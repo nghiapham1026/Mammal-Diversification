@@ -12,7 +12,6 @@ rodent = pd.read_csv('../data/processed/taxon/visualization/Rodent.csv')
 ave = pd.read_csv('../data/processed/taxon/visualization/Ave.csv')
 reptile = pd.read_csv('../data/processed/taxon/visualization/Reptile.csv')
 
-mammaliaformes = pd.read_csv('../data/processed/taxon/visualization/Mammaliaformes.csv')
 multituberculate = pd.read_csv('../data/processed/taxon/visualization/Multituberculate.csv')
 pantodont = pd.read_csv('../data/processed/taxon/visualization/Pantodont.csv')
 theria = pd.read_csv('../data/processed/taxon/visualization/Theria.csv')
@@ -20,7 +19,7 @@ theria = pd.read_csv('../data/processed/taxon/visualization/Theria.csv')
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
 # Calculate 'mid_ma' for each dataset
-datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, ave, reptile, mammaliaformes, multituberculate, pantodont, theria]
+datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, ave, reptile, multituberculate, pantodont, theria]
 for df in datasets:
     df['mid_ma'] = (df['max_ma'] + df['min_ma']) / 2
 
@@ -28,7 +27,7 @@ for df in datasets:
 fig, ax1 = plt.subplots(figsize=(14, 8))
 
 # Plot each taxon's diversity over time using 'mid_ma'
-labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Ave', 'Reptile', 'Mammaliaformes', 'Multituberculate', 'Pantodont', 'Theria']
+labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Ave', 'Reptile', 'Multituberculate', 'Pantodont', 'Theria']
 for df, label in zip(datasets, labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o')
 
@@ -54,11 +53,6 @@ ax2 = ax1.twinx()
 ax2.plot(climate['Time (Myr BP)'], climate['Ts'], label='Mean Surface Temperature', color='red', marker='x', linestyle='--')
 ax2.set_ylabel('Temperature (°C)', color='red', fontsize=14)
 ax2.tick_params(axis='y', labelcolor='red')
-
-# Adjust legend to include temperature
-handles, labels = ax1.get_legend_handles_labels()
-handles2, labels2 = ax2.get_legend_handles_labels()
-ax2.legend(handles + handles2, labels + labels2, loc='upper right')
 
 # Show the plot with both diversity and temperature data, and epochs shaded
 plt.title('Diversity and Mean Surface Temperature Over Time', fontsize=16)

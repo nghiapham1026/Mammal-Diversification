@@ -15,10 +15,11 @@ filepaths = [
     '../data/processed/taxon/visualization/Rodent.csv',
     '../data/processed/taxon/visualization/Ave.csv',
     '../data/processed/taxon/visualization/Reptile.csv',
-    '../data/processed/taxon/visualization/Mammaliaformes.csv',
     '../data/processed/taxon/visualization/Multituberculate.csv',
     '../data/processed/taxon/visualization/Pantodont.csv',
-    '../data/processed/taxon/visualization/Theria.csv'
+    '../data/processed/taxon/visualization/Theria.csv',
+    '../data/processed/taxon/visualization/Creodont.csv',
+    '../data/processed/taxon/visualization/Condylarth.csv'
 ]
 
 # Load, process, and save each dataset

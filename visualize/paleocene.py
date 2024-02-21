@@ -8,24 +8,25 @@ def filter_dataset(df, min_ma, max_ma):
 
 # Load the datasets
 aves = pd.read_csv('../data/processed/taxon/visualization/Ave.csv')
-mammaliaformes = pd.read_csv('../data/processed/taxon/visualization/Mammaliaformes.csv')
 multituberculates = pd.read_csv('../data/processed/taxon/visualization/Multituberculate.csv')
 pantodonts = pd.read_csv('../data/processed/taxon/visualization/Pantodont.csv')
 reptiles = pd.read_csv('../data/processed/taxon/visualization/Reptile.csv')
 theria = pd.read_csv('../data/processed/taxon/visualization/Theria.csv')
+primates = pd.read_csv('../data/processed/taxon/visualization/Primate.csv')
+
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
 # Filter climate data for the Paleocene period (66 to 56 MYA)
 climate_filtered = climate[(climate['Time (Myr BP)'] <= 66) & (climate['Time (Myr BP)'] >= 56)]
 
-datasets = [aves, mammaliaformes, multituberculates, pantodonts, reptiles, theria]
+datasets = [aves, multituberculates, pantodonts, reptiles, theria, primates]
 filtered_datasets = [filter_dataset(ds, 57, 73) for ds in datasets]
 
 # Plotting
 fig, ax1 = plt.subplots(figsize=(12, 8))
 
 # Plot each filtered taxon's diversity over time
-labels = ['Aves', "Mammaliaformes", "Multituberculates", "Pantodonts", "Reptiles", "Theria"]
+labels = ['Aves', "Multituberculates", "Pantodonts", "Reptiles", "Theria", "Primate"]
 for df, label in zip(filtered_datasets, labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o')
 

@@ -33,8 +33,10 @@ for df, label in zip(filtered_datasets, labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o')
 
 # Shading the Miocene and Pliocene epochs
-ax1.axvspan(23, 5.3, color='orange', alpha=0.3, label='Miocene Epoch')
-ax1.axvspan(5.3, 2.58, color='green', alpha=0.3, label='Pliocene Epoch')
+ax1.axvspan(27, 23, color='blue', alpha=0.3, label='Oligocene')
+ax1.axvspan(23, 5.3, color='orange', alpha=0.3, label='Miocene')
+ax1.axvspan(5.3, 2.58, color='green', alpha=0.3, label='Pliocene')
+ax1.axvspan(2.58, 2, color='yellow', alpha=0.3, label='Pleistocene')
 
 # Customize the primary y-axis (diversity)
 ax1.set_xlabel('Time (Million years ago)', fontsize=14)
