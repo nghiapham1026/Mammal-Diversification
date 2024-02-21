@@ -20,7 +20,7 @@ rodent = pd.read_csv('../data/processed/taxon/visualization/Rodent.csv')
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
 # Adjust climate data filter for the Pleistocene period (approximately 2.58 MYA to 0.01 MYA)
-climate_filtered = climate[(climate['Time (Myr BP)'] <= 4.5) & (climate['Time (Myr BP)'] >= 0.01)]
+climate_filtered = climate[climate['Time (Myr BP)'] <= 4.5]
 
 # Plotting with dual-axis for temperature
 fig, ax1 = plt.subplots(figsize=(12, 8))
