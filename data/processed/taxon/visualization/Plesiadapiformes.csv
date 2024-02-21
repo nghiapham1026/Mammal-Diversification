@@ -1,0 +1,6 @@
+interval_no,interval_name,max_ma,min_ma,X_Ft,X_bL,X_FL,X_bt,sampled_in_bin,implied_in_bin,n_occs,mid_ma
+108,Lutetian,47.8,41.3,0,0,1,0,1,0,1,44.55
+109,Ypresian,56.0,47.8,0,0,5,0,5,0,9,51.9
+110,Thanetian,59.2,56.0,0,0,1,0,1,0,4,57.6
+743,Selandian,61.6,59.2,0,0,0,0,0,0,0,60.400000000000006
+111,Danian,66.0,61.6,0,0,19,0,19,0,45,63.8
