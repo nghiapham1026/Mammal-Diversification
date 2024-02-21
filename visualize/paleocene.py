@@ -19,16 +19,22 @@ climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv
 # Filter climate data for the Paleocene period (66 to 56 MYA)
 climate_filtered = climate[(climate['Time (Myr BP)'] <= 66) & (climate['Time (Myr BP)'] >= 56)]
 
-datasets = [aves, multituberculates, pantodonts, reptiles, theria, primates]
-filtered_datasets = [filter_dataset(ds, 57, 73) for ds in datasets]
-
 # Plotting
 fig, ax1 = plt.subplots(figsize=(12, 8))
 
 # Plot each filtered taxon's diversity over time
-labels = ['Aves', "Multituberculates", "Pantodonts", "Reptiles", "Theria", "Primate"]
-for df, label in zip(filtered_datasets, labels):
-    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o')
+mammalian_labels = ['Multituberculates', 'Pantodonts', 'Theria', 'Primates']
+mammalian_datasets = [multituberculates, pantodonts, theria, primates]
+mammalian_datasets = [filter_dataset(ds, 57, 73) for ds in mammalian_datasets]
+for df, label in zip(mammalian_datasets, mammalian_labels):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
+
+reptilian_labels = ['Aves', 'Reptiles']
+reptilian_datasets = [aves, reptiles]
+reptilian_datasets = [filter_dataset(ds, 57, 73) for ds in reptilian_datasets]
+
+for df, label in zip(reptilian_datasets, reptilian_labels):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='^', linestyle='--', linewidth=3)
 
 # Customize the primary y-axis (diversity)
 ax1.set_xlabel('Time (Million years ago)')
@@ -40,7 +46,7 @@ ax1.grid(True)
 
 # Shading the epochs
 ## Late Cretaceous (100.5 to 66 MYA)
-ax1.axvspan(67, 66, color='yellow', alpha=0.3, label='Late Cretaceous')
+ax1.axvspan(69, 66, color='yellow', alpha=0.3, label='Late Cretaceous')
 ## Paleocene (66 to 56 MYA)
 ax1.axvspan(66, 56, color='green', alpha=0.3, label='Paleocene')
 ## Eocene (56 to 33.9 MYA)

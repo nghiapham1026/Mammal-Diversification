@@ -18,18 +18,22 @@ theria = pd.read_csv('../data/processed/taxon/visualization/Theria.csv')
 
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
-# Calculate 'mid_ma' for each dataset
-datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, ave, reptile, multituberculate, pantodont, theria]
-for df in datasets:
-    df['mid_ma'] = (df['max_ma'] + df['min_ma']) / 2
+datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, multituberculate, pantodont, theria]
+non_mammals = [ave, reptile]
 
 # Plotting
 fig, ax1 = plt.subplots(figsize=(14, 8))
 
-# Plot each taxon's diversity over time using 'mid_ma'
-labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Ave', 'Reptile', 'Multituberculate', 'Pantodont', 'Theria']
-for df, label in zip(datasets, labels):
-    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o')
+# Plot mammalian taxa
+for df, label in zip(datasets, ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Multituberculate', 'Pantodont', 'Theria']):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
+
+# Plot Ave and Reptile with distinct visual styles
+ax1.plot(ave['mid_ma'], ave['sampled_in_bin'], label='Ave', marker='^', linestyle='--', color='darkblue', linewidth=2, markersize=8)
+ax1.plot(reptile['mid_ma'], reptile['sampled_in_bin'], label='Reptile', marker='s', linestyle='--', color='darkgreen', linewidth=2, markersize=8)
+
+max_y_value = 800  # This is an example value; adjust based on your data's distribution and what you wish to focus on
+ax1.set_ylim(0, max_y_value)
 
 # Shading the epochs remains unchanged as it provides context to the visualization
 ax1.axvspan(73, 66, color='yellow', alpha=0.3, label='Late Cretaceous')
@@ -45,10 +49,10 @@ ax1.set_xlabel('Time (Million years ago)', fontsize=14)
 ax1.set_ylabel('Number of Occurrences (Diversity)', color='black', fontsize=14)
 ax1.tick_params(axis='y', labelcolor='black')
 ax1.invert_xaxis()
-ax1.legend(loc='upper left')
+ax1.legend(loc='upper left', fontsize=10)
 ax1.grid(True)
 
-# The secondary y-axis for temperature does not need adjustments
+# Create a secondary y-axis for mean surface temperature
 ax2 = ax1.twinx()
 ax2.plot(climate['Time (Myr BP)'], climate['Ts'], label='Mean Surface Temperature', color='red', marker='x', linestyle='--')
 ax2.set_ylabel('Temperature (°C)', color='red', fontsize=14)

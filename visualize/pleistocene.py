@@ -15,20 +15,32 @@ perissodactyl = pd.read_csv('../data/processed/taxon/visualization/Perissodactyl
 primate = pd.read_csv('../data/processed/taxon/visualization/Primate.csv')
 proboscidea = pd.read_csv('../data/processed/taxon/visualization/Proboscidea.csv')
 reptile = pd.read_csv('../data/processed/taxon/visualization/Reptile.csv')
+rodent = pd.read_csv('../data/processed/taxon/visualization/Rodent.csv')
+
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
 # Adjust climate data filter for the Pleistocene period (approximately 2.58 MYA to 0.01 MYA)
 climate_filtered = climate[(climate['Time (Myr BP)'] <= 4.5) & (climate['Time (Myr BP)'] >= 0.01)]
-datasets = [artiodactyl, ave, carnivore, cetacean, perissodactyl, primate, proboscidea, reptile]
-filtered_datasets = [filter_dataset(ds, 0, 5.5) for ds in datasets]
 
 # Plotting with dual-axis for temperature
 fig, ax1 = plt.subplots(figsize=(12, 8))
 
-# Plot each filtered taxon's diversity over time
-labels = ['Artyodactyl', 'Ave', 'Carnivora', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Reptile']
-for df, label in zip(filtered_datasets, labels):
-    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o')
+# Plot mammalian taxa
+mammalian_labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent']
+mammalian_datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent]
+mammalian_datasets = [filter_dataset(ds, 0, 5.5) for ds in mammalian_datasets]
+for df, label in zip(mammalian_datasets, mammalian_labels):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
+
+reptilian_labels = ['Aves', 'Reptiles']
+reptilian_datasets = [ave, reptile]
+reptilian_datasets = [filter_dataset(ds, 0, 5.5) for ds in reptilian_datasets]
+
+for df, label in zip(reptilian_datasets, reptilian_labels):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='^', linestyle='--', linewidth=3)
+
+max_y_value = 500
+ax1.set_ylim(0, max_y_value)
 
 # Shading the epochs
 # Pliocene Epoch (5.3 to 2.58 MYA)

@@ -21,17 +21,22 @@ climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv
 # Filter climate data for the Eocene and Oligocene periods (56 to 23 MYA)
 climate_filtered = climate[(climate['Time (Myr BP)'] <= 59) & (climate['Time (Myr BP)'] >= 23)]
 
-# Filter each taxon dataset for 'max_ma' within 27 and 57
-datasets = [artiodactyl, ave, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, reptile]
-filtered_datasets = [filter_dataset(ds, 27, 60) for ds in datasets]
-
 # Now plotting can proceed with the 'mid_ma' values available
 fig, ax1 = plt.subplots(figsize=(14, 8))
 
-# Plot each filtered taxon's diversity over time using 'mid_ma'
-labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Ave', 'Reptile']
-for df, label in zip(filtered_datasets, labels):
-    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o')
+# Plot mammalian taxa
+mammalian_labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent']
+mammalian_datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent]
+mammalian_datasets = [filter_dataset(ds, 27, 60) for ds in mammalian_datasets]
+for df, label in zip(mammalian_datasets, mammalian_labels):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
+
+reptilian_labels = ['Aves', 'Reptiles']
+reptilian_datasets = [ave, reptile]
+reptilian_datasets = [filter_dataset(ds, 27, 60) for ds in reptilian_datasets]
+
+for df, label in zip(reptilian_datasets, reptilian_labels):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='^', linestyle='--', linewidth=3)
 
 # Shading the epochs
 ax1.axvspan(60, 56, color='green', alpha=0.3, label='Paleocene')
@@ -53,11 +58,6 @@ ax2 = ax1.twinx()
 ax2.plot(climate_filtered['Time (Myr BP)'], climate_filtered['Ts'], label='Mean Surface Temperature', color='red', marker='x', linestyle='--')
 ax2.set_ylabel('Temperature (°C)', color='red', fontsize=14)
 ax2.tick_params(axis='y', labelcolor='red')
-
-# Adjust legend to include temperature
-handles, labels = ax1.get_legend_handles_labels()
-handles2, labels2 = ax2.get_legend_handles_labels()
-ax2.legend(handles + handles2, labels + labels2, loc='upper right')
 
 # Show the plot with both diversity and temperature data, and epochs shaded
 plt.title('Diversity and Mean Surface Temperature Over Time: Eocene and Oligocene', fontsize=16)
