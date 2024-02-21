@@ -1,16 +1,28 @@
 import pandas as pd
 
-def filter_and_save_dataset(input_file_path, skip_lines, output_file_path):
-    # Load the dataset, skipping the specified number of lines
-    df = pd.read_csv(input_file_path, skiprows=skip_lines)
+def add_midpoint_and_save(df, filepath):
+    df['mid_ma'] = (df['min_ma'] + df['max_ma']) / 2
+    df.to_csv(filepath, index=False)  # Save the dataframe without the index
 
-    # Save the filtered data to the specified output file, without the index
-    df.to_csv(output_file_path, index=False)
+# File paths for each dataset
+filepaths = [
+    '../data/processed/taxon/visualization/Artiodactyl.csv',
+    '../data/processed/taxon/visualization/Carnivore.csv',
+    '../data/processed/taxon/visualization/Cetacean.csv',
+    '../data/processed/taxon/visualization/Perissodactyl.csv',
+    '../data/processed/taxon/visualization/Primate.csv',
+    '../data/processed/taxon/visualization/Proboscidea.csv',
+    '../data/processed/taxon/visualization/Rodent.csv',
+    '../data/processed/taxon/visualization/Ave.csv',
+    '../data/processed/taxon/visualization/Reptile.csv',
+    '../data/processed/taxon/visualization/Multituberculate.csv',
+    '../data/processed/taxon/visualization/Pantodont.csv',
+    '../data/processed/taxon/visualization/Theria.csv',
+    '../data/processed/taxon/visualization/Creodont.csv',
+    '../data/processed/taxon/visualization/Condylarth.csv'
+]
 
-
-# Call the function with the specified parameters
-filter_and_save_dataset('../data/raw/taxon/Amphibian_Diversity.csv', 23, '../data/processed/taxon/Amphibian_Diversity.csv')
-filter_and_save_dataset('../data/raw/taxon/Animal_Diversity.csv', 23, '../data/processed/taxon/Animal_Diversity.csv')
-filter_and_save_dataset('../data/raw/taxon/Insect_Diversity.csv', 23, '../data/processed/taxon/Insect_Diversity.csv')
-filter_and_save_dataset('../data/raw/taxon/Mammal_Diversity.csv', 23, '../data/processed/taxon/Mammal_Diversity.csv')
-filter_and_save_dataset('../data/raw/taxon/Reptile_Diversity.csv', 23, '../data/processed/taxon/Reptile_Diversity.csv')
+# Load, process, and save each dataset
+for filepath in filepaths:
+    df = pd.read_csv(filepath)
+    add_midpoint_and_save(df, filepath)

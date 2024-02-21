@@ -9,7 +9,7 @@ def read_and_sort_data(file_path):
 def linear_interpolation(row1, row2, new_max_ma):
     ratio = (new_max_ma - row1['max_ma']) / (row2['max_ma'] - row1['max_ma'])
     interpolated_values = {}
-    for col in ['n_occs']:  # Extend this list to include other columns you want to interpolate
+    for col in ['sampled_in_bin']:  # Extend this list to include other columns you want to interpolate
         interpolated_values[col] = row1[col] + ratio * (row2[col] - row1[col])
     return interpolated_values
 
@@ -18,7 +18,7 @@ def interpolate_data(data):
     for i in range(len(data) - 1):
         row1 = data.iloc[i]
         row2 = data.iloc[i + 1]
-        step = (row2['max_ma'] - row1['max_ma']) / 4
+        step = (row2['max_ma'] - row1['max_ma']) / 10
         new_max_mas = np.arange(row1['max_ma'] + step, row2['max_ma'], step)
         for new_max_ma in new_max_mas:
             interpolated_values = linear_interpolation(row1, row2, new_max_ma)
