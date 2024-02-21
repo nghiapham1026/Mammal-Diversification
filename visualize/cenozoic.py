@@ -11,21 +11,23 @@ proboscidea = pd.read_csv('../data/processed/taxon/visualization/Proboscidea.csv
 rodent = pd.read_csv('../data/processed/taxon/visualization/Rodent.csv')
 ave = pd.read_csv('../data/processed/taxon/visualization/Ave.csv')
 reptile = pd.read_csv('../data/processed/taxon/visualization/Reptile.csv')
-
+plesiadapiformes = pd.read_csv('../data/processed/taxon/visualization/Plesiadapiformes.csv')
+condylarths = pd.read_csv('../data/processed/taxon/visualization/Condylarth.csv')
+creodonts = pd.read_csv('../data/processed/taxon/visualization/Creodont.csv')
 multituberculate = pd.read_csv('../data/processed/taxon/visualization/Multituberculate.csv')
 pantodont = pd.read_csv('../data/processed/taxon/visualization/Pantodont.csv')
 theria = pd.read_csv('../data/processed/taxon/visualization/Theria.csv')
 
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
-datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, multituberculate, pantodont, theria]
+datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, multituberculate, pantodont, theria, plesiadapiformes, condylarths, creodonts]
 non_mammals = [ave, reptile]
 
 # Plotting
 fig, ax1 = plt.subplots(figsize=(14, 8))
 
 # Plot mammalian taxa
-for df, label in zip(datasets, ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Multituberculate', 'Pantodont', 'Theria']):
+for df, label in zip(datasets, ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Multituberculate', 'Pantodont', 'Theria', 'Plesiadapiformes', 'Condylarths', 'Creodonts']):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
 
 reptilian_labels = ['Aves', 'Reptiles']

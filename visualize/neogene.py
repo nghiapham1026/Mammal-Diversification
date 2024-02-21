@@ -16,6 +16,7 @@ primate = pd.read_csv('../data/processed/taxon/visualization/Primate.csv')
 proboscidea = pd.read_csv('../data/processed/taxon/visualization/Proboscidea.csv')
 reptile = pd.read_csv('../data/processed/taxon/visualization/Reptile.csv')
 rodent = pd.read_csv('../data/processed/taxon/visualization/Rodent.csv')
+creodont = pd.read_csv('../data/processed/taxon/visualization/Creodont.csv')
 
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
@@ -26,8 +27,8 @@ climate_filtered = climate[(climate['Time (Myr BP)'] <= 25) & (climate['Time (My
 fig, ax1 = plt.subplots(figsize=(12, 8))
 
 # Plot mammalian taxa
-mammalian_labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent']
-mammalian_datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent]
+mammalian_labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Creodont']
+mammalian_datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, creodont]
 mammalian_datasets = [filter_dataset(ds, 2, 30) for ds in mammalian_datasets]
 for df, label in zip(mammalian_datasets, mammalian_labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)

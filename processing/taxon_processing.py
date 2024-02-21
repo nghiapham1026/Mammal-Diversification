@@ -19,7 +19,8 @@ filepaths = [
     '../data/processed/taxon/visualization/Pantodont.csv',
     '../data/processed/taxon/visualization/Theria.csv',
     '../data/processed/taxon/visualization/Creodont.csv',
-    '../data/processed/taxon/visualization/Condylarth.csv'
+    '../data/processed/taxon/visualization/Condylarth.csv',
+    '../data/processed/taxon/visualization/Plesiadapiformes.csv'
 ]
 
 # Load, process, and save each dataset
