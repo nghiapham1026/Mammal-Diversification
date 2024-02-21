@@ -28,12 +28,11 @@ fig, ax1 = plt.subplots(figsize=(14, 8))
 for df, label in zip(datasets, ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Multituberculate', 'Pantodont', 'Theria']):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
 
-# Plot Ave and Reptile with distinct visual styles
-ax1.plot(ave['mid_ma'], ave['sampled_in_bin'], label='Ave', marker='^', linestyle='--', color='darkblue', linewidth=2, markersize=8)
-ax1.plot(reptile['mid_ma'], reptile['sampled_in_bin'], label='Reptile', marker='s', linestyle='--', color='darkgreen', linewidth=2, markersize=8)
+reptilian_labels = ['Aves', 'Reptiles']
+reptilian_datasets = [ave, reptile]
 
-max_y_value = 800  # This is an example value; adjust based on your data's distribution and what you wish to focus on
-ax1.set_ylim(0, max_y_value)
+for df, label in zip(reptilian_datasets, reptilian_labels):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='^', linestyle='--', linewidth=3)
 
 # Shading the epochs remains unchanged as it provides context to the visualization
 ax1.axvspan(73, 66, color='yellow', alpha=0.3, label='Late Cretaceous')
