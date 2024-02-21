@@ -1,4 +1,5 @@
 # Mammal Diversification
+### Refer to image.ipynb for images of plots
 
 ## Overview
 
