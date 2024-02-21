@@ -6,6 +6,13 @@ def filter_dataset(df, min_ma, max_ma):
     filtered_df = df[(df['max_ma'] <= max_ma) & (df['max_ma'] >= min_ma)].copy()
     return filtered_df
 
+# Define a function to plot each dataset and mark the last point for specified groups
+def plot_with_extinction_mark(df, label, color, marker='x', linestyle=':'):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, color=color, marker=marker, linestyle=linestyle)
+    # Check if the group is one of the specified taxa and mark its last point
+    last_point = df.iloc[0]
+    ax1.plot(last_point['mid_ma'], last_point['sampled_in_bin'], 'rx', markersize=12, markeredgewidth=2)  # Mark extinction with a red "x"
+
 # Load datasets
 artiodactyl = pd.read_csv('../data/processed/taxon/visualization/Artiodactyl.csv')
 carnivore = pd.read_csv('../data/processed/taxon/visualization/Carnivore.csv')
@@ -32,8 +39,8 @@ climate_filtered = climate[(climate['Time (Myr BP)'] <= 59) & (climate['Time (My
 fig, ax1 = plt.subplots(figsize=(14, 8))
 
 # Plot mammalian taxa
-mammalian_labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Multituberculates', 'Pantodonts', 'Plesiadapiformes', 'Condylarths', 'Creodonts']
-mammalian_datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, multituberculates, pantodonts, plesiadapiformes, condylarths, creodonts]
+mammalian_labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Creodonts']
+mammalian_datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, creodonts]
 mammalian_datasets = [filter_dataset(ds, 27, 60) for ds in mammalian_datasets]
 for df, label in zip(mammalian_datasets, mammalian_labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
@@ -44,6 +51,12 @@ reptilian_datasets = [filter_dataset(ds, 27, 60) for ds in reptilian_datasets]
 
 for df, label in zip(reptilian_datasets, reptilian_labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='^', linestyle='--', linewidth=3)
+
+# Plot each taxon
+plot_with_extinction_mark(multituberculates, 'Multituberculates (Extinct)', 'blue')
+plot_with_extinction_mark(pantodonts, 'Pantodonts (Extinct)', 'green')
+plot_with_extinction_mark(plesiadapiformes, 'Plesiadapiformes (Extinct)', 'orange')
+plot_with_extinction_mark(condylarths, 'Condylarths (Extinct)', 'purple')
 
 # Shading the epochs
 ax1.axvspan(60, 56, color='green', alpha=0.3, label='Paleocene')

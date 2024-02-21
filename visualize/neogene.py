@@ -6,6 +6,12 @@ def filter_dataset(df, min_ma, max_ma):
     filtered_df = df[(df['max_ma'] <= max_ma) & (df['max_ma'] >= min_ma)].copy()
     return filtered_df
 
+def plot_with_extinction_mark(df, label, color, marker='x', linestyle=':'):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, color=color, marker=marker, linestyle=linestyle)
+    # Check if the group is one of the specified taxa and mark its last point
+    last_point = df.iloc[0]
+    ax1.plot(last_point['mid_ma'], last_point['sampled_in_bin'], 'rx', markersize=12, markeredgewidth=2)
+
 # Load the datasets
 artiodactyl = pd.read_csv('../data/processed/taxon/visualization/Artiodactyl.csv')
 ave = pd.read_csv('../data/processed/taxon/visualization/Ave.csv')
@@ -27,8 +33,8 @@ climate_filtered = climate[(climate['Time (Myr BP)'] <= 25) & (climate['Time (My
 fig, ax1 = plt.subplots(figsize=(12, 8))
 
 # Plot mammalian taxa
-mammalian_labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Creodont']
-mammalian_datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, creodont]
+mammalian_labels = ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent']
+mammalian_datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent]
 mammalian_datasets = [filter_dataset(ds, 2, 30) for ds in mammalian_datasets]
 for df, label in zip(mammalian_datasets, mammalian_labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
@@ -39,6 +45,8 @@ reptilian_datasets = [filter_dataset(ds, 2, 30) for ds in reptilian_datasets]
 
 for df, label in zip(reptilian_datasets, reptilian_labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='^', linestyle='--', linewidth=3)
+
+plot_with_extinction_mark(filter_dataset(creodont, 2, 30), 'Creodonts (Extinct)', 'blue')
 
 # Shading the Miocene and Pliocene epochs
 ax1.axvspan(27, 23, color='blue', alpha=0.3, label='Oligocene')

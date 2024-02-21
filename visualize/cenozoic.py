@@ -1,6 +1,12 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
+def plot_with_extinction_mark(df, label, color, marker='x', linestyle=':'):
+    ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, color=color, marker=marker, linestyle=linestyle)
+    # Check if the group is one of the specified taxa and mark its last point
+    last_point = df.iloc[0]
+    ax1.plot(last_point['mid_ma'], last_point['sampled_in_bin'], 'rx', markersize=12, markeredgewidth=2)
+
 # Load datasets
 artiodactyl = pd.read_csv('../data/processed/taxon/visualization/Artiodactyl.csv')
 carnivore = pd.read_csv('../data/processed/taxon/visualization/Carnivore.csv')
@@ -18,16 +24,22 @@ multituberculate = pd.read_csv('../data/processed/taxon/visualization/Multituber
 pantodont = pd.read_csv('../data/processed/taxon/visualization/Pantodont.csv')
 theria = pd.read_csv('../data/processed/taxon/visualization/Theria.csv')
 
+multituberculates = pd.read_csv('../data/processed/taxon/visualization/Multituberculate.csv')
+pantodonts = pd.read_csv('../data/processed/taxon/visualization/Pantodont.csv')
+plesiadapiformes = pd.read_csv('../data/processed/taxon/visualization/Plesiadapiformes.csv')
+condylarths = pd.read_csv('../data/processed/taxon/visualization/Condylarth.csv')
+creodont = pd.read_csv('../data/processed/taxon/visualization/Creodont.csv')
+
 climate = pd.read_csv('../data/processed/climate/FilteredTableContinuous5Myr.csv')
 
-datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, multituberculate, pantodont, theria, plesiadapiformes, condylarths, creodonts]
+datasets = [artiodactyl, carnivore, cetacean, perissodactyl, primate, proboscidea, rodent, theria]
 non_mammals = [ave, reptile]
 
 # Plotting
 fig, ax1 = plt.subplots(figsize=(14, 8))
 
 # Plot mammalian taxa
-for df, label in zip(datasets, ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Multituberculate', 'Pantodont', 'Theria', 'Plesiadapiformes', 'Condylarths', 'Creodonts']):
+for df, label in zip(datasets, ['Artiodactyl', 'Carnivore', 'Cetacean', 'Perissodactyl', 'Primate', 'Proboscidea', 'Rodent', 'Theria']):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='o', linestyle='-', alpha=0.7)
 
 reptilian_labels = ['Aves', 'Reptiles']
@@ -35,6 +47,12 @@ reptilian_datasets = [ave, reptile]
 
 for df, label in zip(reptilian_datasets, reptilian_labels):
     ax1.plot(df['mid_ma'], df['sampled_in_bin'], label=label, marker='^', linestyle='--', linewidth=3)
+
+plot_with_extinction_mark(multituberculates, 'Multituberculates (Extinct)', 'blue')
+plot_with_extinction_mark(pantodonts, 'Pantodonts (Extinct)', 'green')
+plot_with_extinction_mark(plesiadapiformes, 'Plesiadapiformes (Extinct)', 'orange')
+plot_with_extinction_mark(condylarths, 'Condylarths (Extinct)', 'purple')
+plot_with_extinction_mark(creodont, 'Creodonts (Extinct)', 'blue')
 
 # Shading the epochs remains unchanged as it provides context to the visualization
 ax1.axvspan(73, 66, color='yellow', alpha=0.3, label='Late Cretaceous')
