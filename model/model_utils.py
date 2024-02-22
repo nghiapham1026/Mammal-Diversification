@@ -35,27 +35,20 @@ def plot_diversity_over_time(data_path, plot_title):
     plt.show()
 
 def plot_taxon_with_context(df, taxon_label, ax):
-    """
-    Plot a given taxon's diversity over time along with climate data and epoch shadings,
-    using different styles based on the taxon type.
-
-    Parameters:
-    - df: DataFrame containing the taxon's data.
-    - taxon_label: String, label for the taxon to be used in the plot.
-    - ax: Matplotlib Axes object where the plot will be drawn.
-    """
     # Determine the style based on the taxon type
     extinct_taxa = ['Multituberculates', 'Pantodonts', 'Plesiadapiformes', 'Condylarths', 'Creodonts']
     reptilian_taxa = ['Aves', 'Reptiles']
     if taxon_label in extinct_taxa:
         marker, linestyle = 'x', ':'
+        ax.plot(df['mid_ma'], df['sampled_in_bin'], label=taxon_label + ' (Extinct)', marker=marker, linestyle=linestyle)
+        last_point = df.iloc[0]
+        ax.plot(last_point['mid_ma'], last_point['sampled_in_bin'], 'rx', markersize=12, markeredgewidth=2)
     elif taxon_label in reptilian_taxa:
         marker, linestyle = '^', '--'
+        ax.plot(df['mid_ma'], df['sampled_in_bin'], label=taxon_label, marker=marker, linestyle=linestyle, alpha=0.7)
     else:  # Mammalian taxa
         marker, linestyle = 'o', '-'
-
-    # Plot the taxon's diversity over time with the determined style
-    ax.plot(df['mid_ma'], df['sampled_in_bin'], label=taxon_label, marker=marker, linestyle=linestyle, alpha=0.7)
+        ax.plot(df['mid_ma'], df['sampled_in_bin'], label=taxon_label, marker=marker, linestyle=linestyle, alpha=0.7)
 
     # Plot climate data on a secondary y-axis
     ax2 = ax.twinx()
@@ -70,9 +63,10 @@ def plot_taxon_with_context(df, taxon_label, ax):
         'Oligocene': 'orange',
         'Miocene': 'grey',
         'Pliocene': 'brown',
-        'Pleistocene': 'purple'
+        'Pleistocene': 'purple',
+        'Holocene': 'aqua'
     }
-    epoch_spans = [(73, 66), (66, 56), (56, 33.9), (33.9, 23.03), (23.03, 5.333), (5.333, 2.58), (2.58, 0.01)]
+    epoch_spans = [(73, 66), (66, 56), (56, 33.9), (33.9, 23.03), (23.03, 5.333), (5.333, 2.58), (2.58, 0.01), (0.01, 0)]
     for span, color in zip(epoch_spans, epoch_colors.values()):
         ax.axvspan(span[0], span[1], color=color, alpha=0.3, label=list(epoch_colors.keys())[list(epoch_colors.values()).index(color)])
 
@@ -84,9 +78,8 @@ def plot_taxon_with_context(df, taxon_label, ax):
     ax.grid(True)
 
     # Adding legend for climate data
-    handles1, labels1 = ax.get_legend_handles_labels()
     handles2, labels2 = ax2.get_legend_handles_labels()
-    ax2.legend(handles1 + handles2, labels1 + labels2, loc='upper right')
+    ax2.legend(handles2, labels2, loc='upper right')
 
     plt.title(f'Diversity and Mean Surface Temperature Over Time: {taxon_label}')
     plt.tight_layout()
