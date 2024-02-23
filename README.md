@@ -1,5 +1,7 @@
 # Mammal Diversification
-### Refer to image.ipynb for images of plots
+### Refer to biodiversity_analysis_by_epochs.ipynb for comprehensive analyses of causes in change of biodiversity by time periods
+### Refer to taxa_analysis.ipynb for analyses of changes in biodiversity over time of various mammalian/reptilian taxa
+### Refer to correlation_analysis.ipynb for analyses of correlation measures of mammals/reptiles and mean surface temperature
 
 ## Overview
 
